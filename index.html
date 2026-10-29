@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Until It Clicks — Repeat until it clicks.</title>
+  <meta name="description" content="思考コスト最小、画面ノイズゼロ。真ん中に問題がある必然、忘却曲線の最適解。腑に落ちるまで高速反復する暗記ツール。">
+  
+  <!-- Fonts: Plus Jakarta Sans, Noto Sans JP, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans JP"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            washi: {
+              bg: '#F6F5F0',       /* 落ち着いた生成り・和紙色 */
+              card: '#FCFCF9',     /* 浮き上がる活字台 */
+              border: '#E3DFD5',   /* 繊細な墨の淡い境界線 */
+              ink: '#1E232A',      /* 墨色 */
+              muted: '#636A75',    /* 薄墨色 */
+              vermilion: '#D9483B',/* 控えめな朱色アクセント */
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 和紙の繊維感を表現する微細SVGノイズ */
+    body {
+      background-color: #F6F5F0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+    /* 活版印刷・Raycast風キートップ */
+    .washi-key {
+      background: #FFFFFF;
+      border: 1px solid #D8D4C7;
+      box-shadow: 0 1.5px 0 #C4BFB0, 0 2px 4px rgba(0,0,0,0.03);
+    }
+  </style>
+</head>
+<body class="text-washi-ink font-sans antialiased selection:bg-washi-vermilion selection:text-white min-h-screen relative overflow-x-hidden">
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 py-8 flex flex-col min-h-screen">
+    
+    <!-- ナビゲーションバー -->
+    <header class="flex items-center justify-between pb-8 border-b border-washi-border">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded bg-washi-ink flex items-center justify-center text-washi-bg font-black text-xs shadow-sm">
+          ✓
+        </div>
+        <span class="text-sm font-black tracking-tight text-washi-ink">Until It Clicks</span>
+      </div>
+      
+      <!-- 多言語切替 ＆ 起動ボタン -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1 bg-washi-card border border-washi-border rounded-lg p-0.5 text-[11px] font-mono">
+          <button onclick="setLang('ja')" id="btn-ja" class="px-2 py-0.5 rounded font-bold bg-washi-ink text-white transition-all">JA</button>
+          <button onclick="setLang('en')" id="btn-en" class="px-2 py-0.5 rounded text-washi-muted hover:text-washi-ink transition-all">EN</button>
+          <button onclick="setLang('zh')" id="btn-zh" class="px-2 py-0.5 rounded text-washi-muted hover:text-washi-ink transition-all">ZH</button>
+        </div>
+
+        <a href="https://keeeeego.github.io/until-it-clicks/" target="_blank" rel="noopener noreferrer" class="shrink-0 px-3.5 py-1.5 rounded-lg bg-white hover:bg-slate-50 border border-washi-border text-xs font-semibold text-washi-ink transition-all flex items-center gap-2 shadow-sm">
+          <span data-i18n="launch_btn">アプリを開く</span>
+          <kbd class="washi-key px-1.5 py-0.2 rounded text-[10px] font-mono text-washi-muted">↵</kbd>
+        </a>
+      </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <main class="flex-1 flex flex-col items-center text-center mt-14 sm:mt-20">
+      
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-washi-border text-[11px] font-mono text-washi-muted mb-6 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-washi-vermilion"></span>
+        <span data-i18n="tagline_pill">Zero Noise. High-Speed Repetition.</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-washi-ink tracking-tight leading-tight max-w-2xl" data-i18n="hero_title">
+        腑に落ちるまで、<br>何度でもスワイプする。
+      </h1>
+
+      <p class="mt-5 text-xs sm:text-sm text-washi-muted max-w-md leading-relaxed" data-i18n="hero_desc">
+        長文解説なし。思考コスト最小。<br>
+        頭の中でカチッと鳴る感覚だけを突き詰めた、極小暗記ツール。
+      </p>
+
+      <!-- Raycast風 コマンドパレット型CTA -->
+      <div class="mt-8 w-full max-w-sm">
+        <a href="https://keeeeego.github.io/until-it-clicks/" class="group block p-3 rounded-xl bg-white hover:border-washi-ink border border-washi-border transition-all shadow-sm">
+          <div class="flex items-center justify-between text-left gap-3">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-washi-vermilion font-mono text-sm shrink-0">❯</span>
+              <span class="text-xs sm:text-sm font-bold text-washi-ink truncate" data-i18n="cta_start">無料で学習を始める</span>
+            </div>
+            <kbd class="washi-key shrink-0 px-2 py-0.5 rounded text-[10px] font-mono text-washi-muted">Space</kbd>
+          </div>
+        </a>
+        <p class="text-[10px] text-washi-muted font-mono mt-2" data-i18n="cta_sub">登録不要・完全無料・ブラウザで即起動</p>
+      </div>
+
+      <!-- 4大思想：和紙 × Raycast Bento Grid -->
+      <section class="mt-20 w-full grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+        
+        <!-- 01: 3面の必然性 -->
+        <div class="p-6 rounded-xl bg-washi-card border border-washi-border flex flex-col justify-between shadow-sm min-h-[190px]">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <kbd class="washi-key px-2 py-0.5 rounded text-[10px] font-mono text-washi-ink">01 / GEOMETRY</kbd>
+              <span class="text-[10px] font-mono text-washi-muted">3-FACES</span>
+            </div>
+            <h2 class="text-base font-bold text-washi-ink mb-1" data-i18n="card1_title">真ん中に「問題」がある必然。</h2>
+            <p class="text-xs text-washi-muted leading-relaxed" data-i18n="card1_desc">
+              答えを見るときも小話を読むときも、親指は必ず問いを通過する。往復する動作そのものが脳へ問いを焼き付けます。
+            </p>
+          </div>
+          <div class="mt-5 p-2 rounded-lg bg-white border border-washi-border flex items-center justify-between font-mono text-[11px] text-washi-muted">
+            <span>💡 小話</span>
+            <span class="font-bold text-washi-ink">⇄ ❓ 問題 ⇄</span>
+            <span>🎯 答え</span>
+          </div>
+        </div>
+
+        <!-- 02: 忘却曲線の最適解 -->
+        <div class="p-6 rounded-xl bg-washi-card border border-washi-border flex flex-col justify-between shadow-sm min-h-[190px]">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <kbd class="washi-key px-2 py-0.5 rounded text-[10px] font-mono text-washi-vermilion">02 / INTERVAL</kbd>
+              <span class="text-[10px] font-mono text-washi-muted">2-HITS</span>
+            </div>
+            <h2 class="text-base font-bold text-washi-ink mb-1" data-i18n="card2_title">2回で終わる、忘却曲線。</h2>
+            <p class="text-xs text-washi-muted leading-relaxed" data-i18n="card2_desc">
+              1回正解で3日冬眠。忘れかけた頃の「再テスト」をクリアした知識だけが【👑 殿堂入り】して卒業。無駄な10回反復を終わらせます。
+            </p>
+          </div>
+          <div class="mt-5 p-2 rounded-lg bg-white border border-washi-border flex items-center justify-between font-mono text-[11px] text-washi-muted">
+            <span>1回目クリア</span>
+            <span class="text-washi-vermilion">➜ 3日冬眠 ➜</span>
+            <span class="font-bold text-washi-ink">👑 殿堂入り</span>
+          </div>
+        </div>
+
+        <!-- 03: ノイズゼロ -->
+        <div class="p-6 rounded-xl bg-washi-card border border-washi-border flex flex-col justify-between shadow-sm min-h-[190px]">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <kbd class="washi-key px-2 py-0.5 rounded text-[10px] font-mono text-washi-ink">03 / NOISELESS</kbd>
+              <span class="text-[10px] font-mono text-washi-muted">0.5s</span>
+            </div>
+            <h2 class="text-base font-bold text-washi-ink mb-1" data-i18n="card3_title">迷わせる選択肢は、置かない。</h2>
+            <p class="text-xs text-washi-muted leading-relaxed" data-i18n="card3_desc">
+              長文の前提条件も紛らわしい選択肢も全廃。覚えるべき1点だけを見て直感スワイプ。思考の摩擦をゼロにしました。
+            </p>
+          </div>
+          <div class="mt-5 p-2 rounded-lg bg-white border border-washi-border flex items-center justify-center gap-4 font-mono text-[11px] text-washi-muted">
+            <span class="text-washi-vermilion">👈 まだ</span>
+            <span class="text-washi-border">|</span>
+            <span class="text-emerald-700 font-bold">覚えた 👉</span>
+          </div>
+        </div>
+
+        <!-- 04: オープンカセット -->
+        <div class="p-6 rounded-xl bg-washi-card border border-washi-border flex flex-col justify-between shadow-sm min-h-[190px]">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <kbd class="washi-key px-2 py-0.5 rounded text-[10px] font-mono text-washi-ink">04 / EXPANDABLE</kbd>
+              <span class="text-[10px] font-mono text-washi-muted">BYO DATA</span>
+            </div>
+            <h2 class="text-base font-bold text-washi-ink mb-1" data-i18n="card4_title">知識は、自分でパッケージングする。</h2>
+            <p class="text-xs text-washi-muted leading-relaxed" data-i18n="card4_desc">
+              公式カセットだけでなく、AIで作ったJSONを貼るだけ。ニッチな資格・専門用語も一瞬で自分専用デッキ化できます。
+            </p>
+          </div>
+          <div class="mt-5 p-2 rounded-lg bg-white border border-washi-border flex items-center justify-center font-mono text-[11px] text-washi-ink">
+            <span>[ ＋ ] AI生成JSONをワンタップ直接貼付</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ボトムCTA -->
+      <section class="mt-16 mb-12 text-center w-full max-w-sm">
+        <a href="https://keeeeego.github.io/until-it-clicks/" class="block w-full py-3.5 rounded-xl bg-washi-ink hover:bg-slate-800 text-white font-bold text-xs tracking-wider uppercase transition-all shadow-md">
+          <span data-i18n="bottom_btn">Launch App ➜</span>
+        </a>
+      </section>
+
+    </main>
+
+    <!-- フッター -->
+    <footer class="pt-8 border-t border-washi-border text-xs text-washi-muted flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px]">
+      <div class="flex items-center gap-4">
+        <span>© 2026 Until It Clicks</span>
+        <a href="https://buymeacoffee.com/keeeeego" target="_blank" rel="noopener noreferrer" class="text-washi-ink hover:underline">☕ Buy Me a Coffee</a>
+      </div>
+      <p class="text-[10px] text-washi-muted max-w-xs sm:text-right font-sans">
+        Amazonのアソシエイトとして、Until It Clicks は適格販売により収入を得ています。
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- 多言語辞書スクリプト -->
+  <script>
+    const i18nData = {
+      ja: {
+        launch_btn: "アプリを開く",
+        tagline_pill: "Zero Noise. High-Speed Repetition.",
+        hero_title: "腑に落ちるまで、<br>何度でもスワイプする。",
+        hero_desc: "長文解説なし。思考コスト最小。<br>頭の中でカチッと鳴る感覚だけを突き詰めた、極小暗記ツール。",
+        cta_start: "無料で学習を始める",
+        cta_sub: "登録不要・完全無料・ブラウザで即起動",
+        card1_title: "真ん中に「問題」がある必然。",
+        card1_desc: "答えを見るときも小話を読むときも、親指は必ず問いを通過する。往復する動作そのものが脳へ問いを焼き付けます。",
+        card2_title: "2回で終わる、忘却曲線。",
+        card2_desc: "1回正解で3日冬眠。忘れかけた頃の「再テスト」をクリアした知識だけが【👑 殿堂入り】して卒業。無駄な10回反復を終わらせます。",
+        card3_title: "迷わせる選択肢は、置かない。",
+        card3_desc: "長文の前提条件も紛らわしい選択肢も全廃。覚えるべき1点だけを見て直感スワイプ。思考の摩擦をゼロにしました。",
+        card4_title: "知識は、自分でパッケージングする。",
+        card4_desc: "公式カセットだけでなく、AIで作ったJSONを貼るだけ。ニッチな資格・専門用語も一瞬で自分専用デッキ化できます。",
+        bottom_btn: "Launch App ➜"
+      },
+      en: {
+        launch_btn: "Launch App",
+        tagline_pill: "Zero Noise. High-Speed Repetition.",
+        hero_title: "Repeat until<br>it clicks.",
+        hero_desc: "Zero lengthy explanations. Minimal cognitive load.<br>A micro flashcard repeater crafted for pure retention.",
+        cta_start: "Start Learning Free",
+        cta_sub: "No Sign-up · 100% Free · Runs in Browser",
+        card1_title: "Central Question Logic",
+        card1_desc: "Checking answers or reading backstory always routes your thumb past the question. The commute itself reinforces recall.",
+        card2_title: "Two-Hit Mastery Loop",
+        card2_desc: "1 correct swipe sleeps the card for 3 days. Clearing the spaced re-test achieves Mastered status. No endless 10-cycle grinding.",
+        card3_title: "Zero Distraction",
+        card3_desc: "No confusing multiple choices. Focus purely on one single term in 0.5s and flick. Total friction elimination.",
+        card4_title: "BYO Cassette System",
+        card4_desc: "Not limited to preset decks. Paste JSON generated by Gemini/ChatGPT to turn any niche knowledge into your custom deck.",
+        bottom_btn: "Launch App ➜"
+      },
+      zh: {
+        launch_btn: "打开应用",
+        tagline_pill: "Zero Noise. High-Speed Repetition.",
+        hero_title: "直到恍然大悟，<br>无限高速滑动。",
+        hero_desc: "零冗长解释，极低思考成本。<br>只追求脑中豁然开朗瞬间的极简刷题工具。",
+        cta_start: "免费开始学习",
+        cta_sub: "无需注册 · 完全免费 · 浏览器即开即用",
+        card1_title: "问题居中的必然几何",
+        card1_desc: "无论查看答案还是背景小故事，拇指都必须经过中央的问题。往返的动作本身便将记忆刻入脑海。",
+        card2_title: "两次合格，对抗遗忘",
+        card2_desc: "答对一次进入3天休眠。在遗忘临界点的复测再次通过即晋升【殿堂入】。告别无意义的反复刷题。",
+        card3_title: "彻底剥离干扰杂音",
+        card3_desc: "没有令人迷惑的干扰选项。0.5秒直视单个核心考点并凭直觉滑动，阻力归零。",
+        card4_title: "自由封装，专属卡带",
+        card4_desc: "不仅限于官方题库。直接粘贴AI生成的JSON，任何专业术语皆可瞬间变为专属卡带。",
+        bottom_btn: "立即开始 ➜"
+      }
+    };
+
+    function setLang(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18nData[lang] && i18nData[lang][key]) {
+          el.innerHTML = i18nData[lang][key];
+        }
+      });
+      ['ja', 'en', 'zh'].forEach(l => {
+        const btn = document.getElementById('btn-' + l);
+        if (l === lang) {
+          btn.className = "px-2 py-0.5 rounded font-bold bg-washi-ink text-white transition-all";
+        } else {
+          btn.className = "px-2 py-0.5 rounded text-washi-muted hover:text-washi-ink transition-all";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
