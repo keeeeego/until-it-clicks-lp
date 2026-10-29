@@ -150,7 +150,7 @@
 
 
     <!-- ==================================================== -->
-    <!-- FEATURE 01: 幅固定 ＆ 完全センタリングの3面カード -->
+    <!-- FEATURE 01: ガタつき根絶 ＆ 左右タップ移動（3面カード） -->
     <!-- ==================================================== -->
     <section class="py-20 border-t border-washi-border text-center">
       <div class="max-w-2xl mx-auto mb-8 text-center">
@@ -164,7 +164,7 @@
         </p>
       </div>
 
-      <!-- 横幅を絶対に固定したコンテナ -->
+      <!-- 横幅を完全に固定したコンテナ -->
       <div class="w-full max-w-md mx-auto">
         <div class="p-4 sm:p-6 rounded-3xl bg-white/85 backdrop-blur-sm border border-washi-border shadow-xl select-none flex flex-col items-center">
           
@@ -181,40 +181,41 @@
             </button>
           </div>
 
-          <!-- メイン動的カード（高さと幅を固定し、文字数でブレない設計） -->
-          <div class="w-full relative py-12 text-center cursor-grab active:cursor-grabbing overflow-hidden h-[280px] sm:h-[300px] flex flex-col justify-center items-center touch-pan-y" id="carousel-card">
+          <!-- メイン動的カード（高さ・幅固定、フォント再計算によるチラつきを根本排除） -->
+          <div class="w-full relative py-6 text-center cursor-pointer overflow-hidden h-[250px] flex flex-col justify-center items-center" id="carousel-card" onclick="handleCardClick(event)">
             
-            <div id="card-badge" class="text-xs font-mono text-purple-700 tracking-wider block mb-3 font-bold transition-opacity duration-200 text-center">
-              QUESTION
+            <div id="card-badge" class="text-xs font-mono text-purple-700 tracking-wider block mb-2 font-bold text-center">
+              02 / QUESTION 面 (中央)
             </div>
             
-            <!-- 幅固定・はみ出し自動抑制・完全中央 -->
-            <div class="w-full px-4 flex items-center justify-center min-h-[90px]">
-              <div id="card-title" class="font-black text-washi-ink tracking-tight transition-all duration-300 transform text-center leading-tight">
+            <!-- 高さを固定し、どんな文章でも枠が絶対にガタつかない -->
+            <div class="w-full px-4 flex items-center justify-center h-[90px]">
+              <div id="card-title" class="font-black text-washi-ink tracking-tight text-center leading-snug text-2xl sm:text-3xl transition-opacity duration-150">
                 leverage
               </div>
             </div>
 
             <!-- サブ補足 -->
-            <p id="card-desc" class="text-xs sm:text-sm text-washi-muted mt-3 font-mono transition-opacity duration-200 px-4 text-center max-w-xs">
+            <p id="card-desc" class="text-xs sm:text-sm text-washi-muted mt-2 font-mono px-4 text-center max-w-xs transition-opacity duration-150">
               動詞 / 英検・TOEIC頻出
             </p>
 
-            <div id="nav-arrow-left" class="absolute inset-y-0 left-0 w-1/5 flex items-center justify-start pl-2 text-washi-muted/40 hover:text-washi-ink transition-colors pointer-events-none">
+            <!-- 左右のアフォーダンス（行ける側だけ明示） -->
+            <div id="nav-arrow-left" class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-2 text-washi-muted/40 hover:text-washi-ink transition-colors pointer-events-none">
               <span class="text-xl">❮</span>
             </div>
-            <div id="nav-arrow-right" class="absolute inset-y-0 right-0 w-1/5 flex items-center justify-end pr-2 text-washi-muted/40 hover:text-washi-ink transition-colors pointer-events-none">
+            <div id="nav-arrow-right" class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-2 text-washi-muted/40 hover:text-washi-ink transition-colors pointer-events-none">
               <span class="text-xl">❯</span>
             </div>
 
           </div>
 
-          <!-- 下部ガイド -->
+          <!-- 下部ガイド（スワイプの文字を削除し、左右タップに統一） -->
           <div class="w-full flex justify-between items-center pt-4 border-t border-washi-border text-xs font-mono text-washi-muted">
             <button onclick="handleSideClick('left')" id="btn-left-guide" class="text-washi-ink font-semibold hover:underline flex items-center gap-1">
               👈 <span id="label-left-guide">小話</span>
             </button>
-            <span class="text-washi-vermilion font-bold text-center" id="label-center-status">左右スワイプまたはタップ</span>
+            <span class="text-washi-vermilion font-bold text-center" id="label-center-status">左右タップで面をめくる</span>
             <button onclick="handleSideClick('right')" id="btn-right-guide" class="text-washi-ink font-semibold hover:underline flex items-center gap-1">
               <span id="label-right-guide">解答</span> 👉
             </button>
@@ -226,7 +227,7 @@
 
 
     <!-- ==================================================== -->
-    <!-- FEATURE 02: 迷わない2択スワイプ（何回でも試せるデモ） -->
+    <!-- FEATURE 02: 迷わない2択スワイプ -->
     <!-- ==================================================== -->
     <section class="py-20 border-t border-washi-border text-center">
       <div class="max-w-2xl mx-auto mb-8 text-center">
@@ -239,7 +240,6 @@
         </p>
       </div>
 
-      <!-- 幅を揃えた固定コンテナ -->
       <div class="w-full max-w-md mx-auto">
         <div class="p-4 sm:p-6 rounded-3xl bg-white/85 backdrop-blur-sm border border-washi-border shadow-xl flex flex-col items-center">
           
@@ -248,7 +248,7 @@
             <span class="text-purple-700 font-bold">左: まだ反復 ｜ 右: 覚えた！</span>
           </div>
 
-          <!-- スワイプ体験ミニカード（幅と高さを固定） -->
+          <!-- スワイプ体験ミニカード -->
           <div class="w-full relative py-8 px-4 rounded-2xl bg-washi-bg border border-washi-border text-center overflow-hidden flex flex-col items-center justify-center h-[200px] select-none transition-transform duration-200" id="swipe-demo-card">
             <span id="swipe-stamp" class="absolute top-4 font-mono font-black text-xs px-3.5 py-1.5 rounded-lg opacity-0 transition-all duration-200"></span>
             
@@ -261,7 +261,7 @@
               パラダイム / 思考の枠組み
             </span>
             <span class="text-[10px] font-mono text-purple-700 mt-2 font-semibold" id="swipe-demo-round">
-              1回目: 未習得
+              1回目: NEW
             </span>
           </div>
 
@@ -430,82 +430,77 @@
   <!-- スクリプト -->
   <script>
     let currentLang = 'ja';
-    let currentFace = 1;
+    let currentFace = 1; // 0: 小話, 1: 問題(中央), 2: 解答
 
-    // 01 3面カードデータ（フォントサイズを動的に適正化）
+    // 01 3面カードデータ
     const faceData = {
       ja: [
         {
           badge: "01 / STORY 面",
           title: "テコの原理（lever）が語源",
-          desc: "小さな力で重いものを動かす仕組みから「力を活用する」へ",
-          fontSize: "text-2xl sm:text-3xl"
+          desc: "小さな力で重いものを動かす仕組みから「力を活用する」へ"
         },
         {
           badge: "02 / QUESTION 面 (中央)",
           title: "leverage",
-          desc: "動詞 / 英検・TOEIC頻出",
-          fontSize: "text-4xl sm:text-5xl"
+          desc: "動詞 / 英検・TOEIC頻出"
         },
         {
           badge: "03 / ANSWER 面",
           title: "〜を活用する",
-          desc: "テコを効かせて効果を最大化する",
-          fontSize: "text-3xl sm:text-4xl"
+          desc: "テコを効かせて効果を最大化する"
         }
       ],
       en: [
         {
           badge: "01 / STORY FACE",
           title: "Rooted in 'lever'",
-          desc: "Using minimal input to gain maximum mechanical advantage",
-          fontSize: "text-2xl sm:text-3xl"
+          desc: "Using minimal input to gain maximum mechanical advantage"
         },
         {
           badge: "02 / QUESTION FACE (CENTER)",
           title: "leverage",
-          desc: "Verb / High-frequency Term",
-          fontSize: "text-4xl sm:text-5xl"
+          desc: "Verb / High-frequency Term"
         },
         {
           badge: "03 / ANSWER FACE",
           title: "to utilize / exploit",
-          desc: "Use something to maximum advantage",
-          fontSize: "text-3xl sm:text-4xl"
+          desc: "Use something to maximum advantage"
         }
       ]
     };
 
-    function switchFace(index) {
-      currentFace = index;
-      const data = faceData[currentLang][index];
+    function switchFace(targetFace) {
+      currentFace = targetFace;
+      const data = faceData[currentLang][targetFace];
       
       const badge = document.getElementById('card-badge');
       const title = document.getElementById('card-title');
       const desc = document.getElementById('card-desc');
 
+      // スタイルクラスはいじらず、フェードイン・アウトのみで文字を切り替える
       title.style.opacity = '0';
-      title.style.transform = index === 1 ? 'scale(1)' : (index === 0 ? 'translateX(-8px)' : 'translateX(8px)');
+      desc.style.opacity = '0';
       
       setTimeout(() => {
         badge.innerText = data.badge;
         title.innerText = data.title;
-        title.className = `font-black text-washi-ink tracking-tight transition-all duration-300 transform text-center leading-tight ${data.fontSize}`;
         desc.innerText = data.desc;
         title.style.opacity = '1';
-        title.style.transform = 'translateX(0) scale(1)';
-      }, 150);
+        desc.style.opacity = '1';
+      }, 100);
 
+      // 上部タブ
       [0, 1, 2].forEach(i => {
         const btn = document.getElementById('face-tab-' + i);
-        if (i === index) {
+        if (i === targetFace) {
           btn.className = "py-2 px-1 rounded-xl transition-all font-bold bg-washi-ink text-white shadow-sm text-center";
         } else {
           btn.className = "py-2 px-1 rounded-xl transition-all font-semibold text-washi-muted hover:bg-slate-100 text-center";
         }
       });
 
-      updateNavGuides(index);
+      updateNavGuides(targetFace);
     }
 
     function updateNavGuides(face) {
@@ -515,75 +510,47 @@
       const rightGuide = document.getElementById('label-right-guide');
 
       if (face === 0) {
-        leftArrow.style.opacity = '0.08';
+        // 小話（一番左）：右しか行けない
+        leftArrow.style.opacity = '0.05';
         rightArrow.style.opacity = '1';
         leftGuide.innerText = "端";
         rightGuide.innerText = "問題";
       } else if (face === 1) {
+        // 問題（中央）：左右どちらも行ける
         leftArrow.style.opacity = '1';
         rightArrow.style.opacity = '1';
         leftGuide.innerText = "小話";
         rightGuide.innerText = "解答";
       } else if (face === 2) {
+        // 解答（一番右）：左しか行けない
         leftArrow.style.opacity = '1';
-        rightArrow.style.opacity = '0.08';
+        rightArrow.style.opacity = '0.05';
         leftGuide.innerText = "問題";
         rightGuide.innerText = "端";
       }
     }
 
-    function handleSideClick(side) {
-      if (side === 'left') {
-        if (currentFace === 2) switchFace(1);
-        else if (currentFace === 1) switchFace(0);
+    // 1個左へ、1個右へ（端なら留まる）
+    function handleSideClick(direction) {
+      if (direction === 'left') {
+        if (currentFace === 2) switchFace(1); // 解答 ➜ 問題
+        else if (currentFace === 1) switchFace(0); // 問題 ➜ 小話
+        // 小話(0)のときは左を押しても何もしない
       } else {
-        if (currentFace === 0) switchFace(1);
-        else if (currentFace === 1) switchFace(2);
+        if (currentFace === 0) switchFace(1); // 小話 ➜ 問題
+        else if (currentFace === 1) switchFace(2); // 問題 ➜ 解答
+        // 解答(2)のときは右を押しても何もしない
       }
     }
 
-    // 01 スワイプ対応
-    const cardEl = document.getElementById('carousel-card');
-    let startX = 0;
-    let isDragging = false;
-
-    cardEl.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-    }, { passive: true });
-
-    cardEl.addEventListener('touchend', (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      const endX = e.changedTouches[0].clientX;
-      handleSwipeGesture(startX, endX);
-    });
-
-    cardEl.addEventListener('mousedown', (e) => {
-      startX = e.clientX;
-      isDragging = true;
-    });
-
-    cardEl.addEventListener('mouseup', (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      const endX = e.clientX;
-      handleSwipeGesture(startX, endX);
-    });
-
-    function handleSwipeGesture(start, end) {
-      const diffX = end - start;
-      if (Math.abs(diffX) > 40) {
-        if (diffX < 0) handleSideClick('right');
-        else handleSideClick('left');
-      } else {
-        const rect = cardEl.getBoundingClientRect();
-        const clickX = end - rect.left;
-        handleSideClick(clickX < rect.width / 2 ? 'left' : 'right');
-      }
+    // カードをタップした位置で「左半分なら左へ1歩」「右半分なら右へ1歩」
+    function handleCardClick(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      handleSideClick(clickX < rect.width / 2 ? 'left' : 'right');
     }
 
-    // 02 スワイプデモ（何問でも試せるカードキュー）
+    // 02 デモカード（2択スワイプ）
     const demoCards = [
       { word: "paradigm", desc: "パラダイム / 思考の枠組み", round: "1回目: NEW" },
       { word: "pragmatic", desc: "実用的な・実践的な", round: "2回目: 🔥 ラスト1回テスト" },
@@ -611,7 +578,6 @@
       }
 
       setTimeout(() => {
-        // 次のカードへ進める
         demoIndex = (demoIndex + 1) % demoCards.length;
         const next = demoCards[demoIndex];
         document.getElementById('swipe-demo-word').innerText = next.word;
