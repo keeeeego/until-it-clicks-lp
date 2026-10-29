@@ -150,7 +150,7 @@
 
 
     <!-- ==================================================== -->
-    <!-- FEATURE 01: でかいカード ＆ 文字ノイズ削ぎ落とし -->
+    <!-- FEATURE 01: 3面カード（問題が真ん中にある必然） -->
     <!-- ==================================================== -->
     <section class="py-20 border-t border-washi-border">
       <div class="text-left mb-8">
@@ -218,12 +218,59 @@
 
 
     <!-- ==================================================== -->
-    <!-- FEATURE 02: 本物の「学習曲線」（1回目急上昇 ➜ 2回目定着 ➜ 3回目以降安定） -->
+    <!-- FEATURE 02: 2番目に昇格！ 2択スワイプ（BINARY SWIPE） -->
+    <!-- ==================================================== -->
+    <section class="py-20 border-t border-washi-border">
+      <div class="text-left mb-8">
+        <kbd class="raycast-key px-2.5 py-1 rounded text-xs font-mono text-purple-700 font-bold mb-3 inline-block">02 / BINARY SWIPE</kbd>
+        <h2 class="text-2xl sm:text-4xl font-black text-washi-ink tracking-tight mb-2">
+          <span class="inline-block">迷わない、</span><span class="inline-block">2択スワイプ。</span>
+        </h2>
+        <p class="text-xs sm:text-base text-washi-muted leading-relaxed max-w-xl">
+          <span class="inline-block">ダミー選択肢を吟味する時間は不要。</span><span class="inline-block">中央の1点だけを見て想起し、0.5秒でスワイプする。思考の摩擦をゼロにしました。</span>
+        </p>
+      </div>
+
+      <div class="w-full">
+        <div class="p-6 sm:p-10 rounded-3xl bg-white/85 backdrop-blur-sm border border-washi-border shadow-xl">
+          
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-washi-muted">0.5s Intuition</span>
+            <span class="text-xs font-mono text-purple-700 font-bold">左: まだ反復 ｜ 右: 覚えた！</span>
+          </div>
+
+          <!-- スワイプ体験ミニカード -->
+          <div class="relative py-12 px-6 rounded-2xl bg-washi-bg border border-washi-border text-center overflow-hidden flex flex-col items-center justify-center min-h-[220px] select-none transition-transform duration-200" id="swipe-demo-card">
+            <span id="swipe-stamp" class="absolute top-4 font-mono font-black text-xs px-3.5 py-1.5 rounded-lg opacity-0 transition-all duration-200"></span>
+            
+            <div class="text-3xl sm:text-5xl font-black text-washi-ink tracking-tight mb-2" id="swipe-demo-word">
+              paradigm
+            </div>
+            <span class="text-xs sm:text-sm font-mono text-washi-muted">パラダイム / 思考の枠組み</span>
+          </div>
+
+          <!-- 下部アクションボタン -->
+          <div class="grid grid-cols-2 gap-3 mt-6 font-mono text-xs sm:text-sm">
+            <button onclick="triggerDemoSwipe('left')" class="py-3 px-4 rounded-xl border border-rose-200 bg-rose-50/70 hover:bg-rose-100 text-rose-700 font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+              <span>← まだ反復</span>
+            </button>
+            <button onclick="triggerDemoSwipe('right')" class="py-3 px-4 rounded-xl border border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100 text-emerald-800 font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+              <span>覚えた！ →</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================================================== -->
+    <!-- FEATURE 03: 3番目に配置！ 学習曲線（MASTERY CURVE） -->
     <!-- ==================================================== -->
     <section class="py-20 border-t border-washi-border" id="retention-section">
       <div class="text-left mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <kbd class="raycast-key px-2.5 py-1 rounded text-xs font-mono text-purple-700 font-bold mb-3 inline-block">02 / MASTERY CURVE</kbd>
+          <kbd class="raycast-key px-2.5 py-1 rounded text-xs font-mono text-purple-700 font-bold mb-3 inline-block">03 / MASTERY CURVE</kbd>
           <h2 class="text-2xl sm:text-4xl font-black text-washi-ink tracking-tight mb-2" data-i18n="f2_title">
             <span class="inline-block">2回で極まる、</span><span class="inline-block">学習曲線。</span>
           </h2>
@@ -301,89 +348,45 @@
 
 
     <!-- ==================================================== -->
-    <!-- FEATURE 03 & 04: PHILOSOPHY（ミニマル・動的モック） -->
+    <!-- FEATURE 04: 4番目に配置！ オープンカセット（OPEN CASSETTE） -->
     <!-- ==================================================== -->
     <section class="py-20 border-t border-washi-border">
-      <div class="text-left mb-10">
-        <kbd class="raycast-key px-2.5 py-1 rounded text-xs font-mono text-washi-ink font-bold mb-3 inline-block">03 & 04 / PHILOSOPHY</kbd>
+      <div class="text-left mb-8">
+        <kbd class="raycast-key px-2.5 py-1 rounded text-xs font-mono text-purple-700 font-bold mb-3 inline-block">04 / OPEN CASSETTE</kbd>
         <h2 class="text-2xl sm:text-4xl font-black text-washi-ink tracking-tight mb-2">
-          <span class="inline-block">選択肢の吟味を、</span><span class="inline-block">ゼロにする。</span>
+          <span class="inline-block">あらゆる知識を、</span><span class="inline-block">カセット化。</span>
         </h2>
         <p class="text-xs sm:text-base text-washi-muted leading-relaxed max-w-xl">
-          <span class="inline-block">4択問題に悩む時間は学習ではありません。</span><span class="inline-block">想起して0.5秒で仕分ける。思考の摩擦を極限まで削ぎ落としました。</span>
+          <span class="inline-block">公式の語学や資格だけでなく、</span><span class="inline-block">AIで作ったJSONを貼るだけ。ニッチな専門知識も一瞬で自作教材に。</span>
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <!-- 03: 2択スワイプの動的ミニモック -->
-        <div class="p-6 sm:p-8 rounded-3xl bg-white/85 backdrop-blur-sm border border-washi-border shadow-xl flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono text-purple-700 tracking-wider font-bold">03 / BINARY SWIPE</span>
-              <span class="text-[11px] font-mono text-washi-muted">0.5s Intuition</span>
-            </div>
-            <h3 class="text-xl sm:text-2xl font-black text-washi-ink mb-1">
-              迷わない、2択スワイプ。
-            </h3>
-            <p class="text-xs text-washi-muted mb-6">
-              ダミー選択肢を排除。頭に浮かんだら右、出なければ左。
-            </p>
-          </div>
-
-          <!-- スワイプ体験ミニカード -->
-          <div class="relative py-8 px-4 rounded-2xl bg-washi-bg border border-washi-border text-center overflow-hidden flex flex-col items-center justify-center min-h-[160px] select-none" id="swipe-demo-card">
-            <span id="swipe-stamp" class="absolute top-3 font-mono font-black text-xs px-3 py-1 rounded-lg opacity-0 transition-all duration-200"></span>
-            <div class="text-2xl sm:text-3xl font-black text-washi-ink tracking-tight mb-1" id="swipe-demo-word">
-              paradigm
-            </div>
-            <span class="text-[11px] font-mono text-washi-muted">パラダイム / 思考の枠組み</span>
-          </div>
-
-          <!-- アクションバー -->
-          <div class="grid grid-cols-2 gap-2 mt-4 font-mono text-xs">
-            <button onclick="triggerDemoSwipe('left')" class="py-2.5 px-3 rounded-xl border border-rose-200 bg-rose-50/60 hover:bg-rose-100/80 text-rose-700 font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm">
-              <span>← まだ反復</span>
-            </button>
-            <button onclick="triggerDemoSwipe('right')" class="py-2.5 px-3 rounded-xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/80 text-emerald-800 font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm">
-              <span>覚えた！ →</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 04: オープンカセット（JSON拡張） -->
-        <div class="p-6 sm:p-8 rounded-3xl bg-white/85 backdrop-blur-sm border border-washi-border shadow-xl flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono text-purple-700 tracking-wider font-bold">04 / OPEN CASSETTE</span>
-              <span class="text-[11px] font-mono text-washi-muted">BYO Knowledge</span>
-            </div>
-            <h3 class="text-xl sm:text-2xl font-black text-washi-ink mb-1">
-              あらゆる知識を、カセット化。
-            </h3>
-            <p class="text-xs text-washi-muted mb-6">
-              AI生成のJSONを貼り付けるだけ。専門用語も一瞬で自作教材に。
-            </p>
+      <div class="w-full">
+        <div class="p-6 sm:p-10 rounded-3xl bg-white/85 backdrop-blur-sm border border-washi-border shadow-xl">
+          
+          <div class="flex items-center justify-between mb-4 font-mono text-xs text-washi-muted">
+            <span>BYO Knowledge (Bring Your Own)</span>
+            <span class="text-purple-700 font-bold">Gemini / ChatGPT 連携</span>
           </div>
 
           <!-- コードブロック風ミニモック -->
-          <div class="p-4 rounded-2xl bg-slate-900 text-slate-300 font-mono text-[11px] leading-relaxed overflow-hidden border border-slate-800 shadow-inner min-h-[160px] flex flex-col justify-center">
-            <div class="text-slate-500 mb-1 flex items-center justify-between">
-              <span>deck_custom.json</span>
-              <span class="text-purple-400">Gemini / GPT</span>
+          <div class="p-5 sm:p-6 rounded-2xl bg-slate-900 text-slate-300 font-mono text-xs sm:text-sm leading-relaxed overflow-hidden border border-slate-800 shadow-inner min-h-[180px] flex flex-col justify-center">
+            <div class="text-slate-500 mb-2 flex items-center justify-between">
+              <span>custom_deck.json</span>
+              <span class="text-purple-400 font-bold">即時インポート対応</span>
             </div>
-            <div class="text-emerald-400">"title": "⚡ 独自専門用語デッキ",</div>
+            <div class="text-emerald-400">"title": "⚡ 独自専門用語・即戦力カセット",</div>
             <div class="text-slate-400">"cards": [</div>
-            <div class="pl-3 text-sky-300">{ "front": "固有概念", "back": "本質" }</div>
+            <div class="pl-4 text-sky-300">{ "front": "固有概念", "back": "本質と定義", "story": "語源・小話" }</div>
             <div class="text-slate-400">]</div>
           </div>
 
-          <div class="mt-4 p-2.5 rounded-xl bg-washi-bg border border-washi-border text-center font-mono text-xs text-washi-ink font-bold flex items-center justify-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>JSONを貼るだけで即座に学習開始</span>
+          <div class="mt-4 p-3 rounded-xl bg-washi-bg border border-washi-border text-center font-mono text-xs sm:text-sm text-washi-ink font-bold flex items-center justify-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span>テキストをコピー＆ペーストするだけで即座に学習開始</span>
           </div>
-        </div>
 
+        </div>
       </div>
     </section>
 
@@ -414,10 +417,10 @@
 
   </div>
 
-  <!-- 多言語辞書 ＆ カルーセル・スワイプ・グラフアニメーション -->
+  <!-- スクリプト -->
   <script>
     let currentLang = 'ja';
-    let currentFace = 1; // 0: 小話, 1: 問題(中央), 2: 解答
+    let currentFace = 1;
 
     const faceData = {
       ja: [
@@ -562,28 +565,28 @@
       }
     }
 
-    // 03 デモカードのスワイプ演出
+    // 02 デモカードのスワイプ演出
     function triggerDemoSwipe(direction) {
       const card = document.getElementById('swipe-demo-card');
       const stamp = document.getElementById('swipe-stamp');
       
       if (direction === 'left') {
-        card.style.transform = 'translateX(-18px) rotate(-3deg)';
+        card.style.transform = 'translateX(-22px) rotate(-3.5deg)';
         stamp.innerText = '🔄 もう1回';
-        stamp.className = 'absolute top-3 font-mono font-black text-xs px-3 py-1 rounded-lg border border-rose-400 bg-rose-100 text-rose-700 opacity-100 transition-all';
+        stamp.className = 'absolute top-4 font-mono font-black text-xs px-3.5 py-1.5 rounded-lg border border-rose-400 bg-rose-100 text-rose-700 opacity-100 transition-all';
       } else {
-        card.style.transform = 'translateX(18px) rotate(3deg)';
+        card.style.transform = 'translateX(22px) rotate(3.5deg)';
         stamp.innerText = '✨ 覚えた！';
-        stamp.className = 'absolute top-3 font-mono font-black text-xs px-3 py-1 rounded-lg border border-emerald-400 bg-emerald-100 text-emerald-800 opacity-100 transition-all';
+        stamp.className = 'absolute top-4 font-mono font-black text-xs px-3.5 py-1.5 rounded-lg border border-emerald-400 bg-emerald-100 text-emerald-800 opacity-100 transition-all';
       }
 
       setTimeout(() => {
         card.style.transform = 'translateX(0) rotate(0deg)';
         stamp.style.opacity = '0';
-      }, 400);
+      }, 450);
     }
 
-    // 02 グラフアニメーション再生
+    // 03 グラフアニメーション再生
     function replayRetentionChart() {
       const container = document.getElementById('retention-section');
       container.classList.remove('is-animated');
